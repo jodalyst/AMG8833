@@ -1,0 +1,2 @@
+# AMG8833
+MAG8833 Library
