@@ -34,7 +34,15 @@ void AMG8833::writeByte(uint8_t address, uint8_t subAddress, uint8_t data) {
 
 int16_t AMG8833::readThermistor()
 {
- uint8_t rawData[2] = {0, 0};
- readBytes(AMG8833_ADDRESS, AMG8833_TTHL, 2, &rawData[0]);
- return (int16_t) (((int16_t) rawData[1] << 8) | rawData[0]);
+    uint8_t rawData[2] = {0, 0};
+    readBytes(AMG8833_ADDRESS, AMG8833_TTHL, 2, &rawData[0]);
+    return (int16_t) (((int16_t) rawData[1] << 8) | rawData[0]);
+}
+
+void AMG8833::readGrid(float* tempValues){
+    readBytes(AMG8833_ADDRESS, AMG8833_DATA01L, 128, &rawData[0]);
+    for(uint16_t ii = 0; ii < 64; ii++) {
+      tempValues[ii] = (float) ((int16_t) ( (int16_t) rawData[2*ii + 1] << 8) | rawData[2*ii]);
+      tempValues[ii] *=0.25f; // scale to get temperatures in degrees C
+    }
 }

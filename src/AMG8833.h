@@ -61,9 +61,11 @@
 
 class AMG8833 {
 	public:
+        uint8_t rawData[128];   //raw data array //used to hold array content
+    
 		AMG8833();
 		void initialize(uint8_t mode=AMG8833_NORMAL_MODE, uint8_t fps=AMG8833_10FPS);
-		void getImage();
+		void readGrid(float * tempValues);
 		int16_t readThermistor();
 
 	private:
