@@ -1,5 +1,7 @@
+
 #ifndef AMG8833_H
-#define EMG8833_H
+#define AMG8833_H
+#endif
 
 #include <Wire.h>
 
@@ -61,16 +63,16 @@
 
 class AMG8833 {
 	public:
-        uint8_t rawData[128];   //raw data array //used to hold array content
-    
+    uint8_t device_address;  //device address
+    uint8_t rawData[128];   //raw data array //used to hold array content
 		AMG8833();
-		void initialize(uint8_t mode=AMG8833_NORMAL_MODE, uint8_t fps=AMG8833_10FPS);
+		void initialize(uint8_t address= AMG8833_ADDRESS, uint8_t mode=AMG8833_NORMAL_MODE, uint8_t fps=AMG8833_10FPS);
 		void readGrid(float * tempValues);
 		int16_t readThermistor();
 
 	private:
-		void writeByte(uint8_t address, uint8_t subAddress, uint8_t data);
-		uint8_t readByte(uint8_t address, uint8_t subAddress);
-		void readBytes(uint8_t address, uint8_t subAddress, uint8_t count, uint8_t * dest);
+	  void writeByte(uint8_t deviceAddress, uint8_t registerAddress, uint8_t data);
+		uint8_t readByte(uint8_t deviceAddress, uint8_t registerAddress);
+		uint8_t readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest);
 
-}
+};
