@@ -18,11 +18,19 @@ void AMG8833::initialize(uint8_t address, uint8_t mode, uint8_t fps){
 
 uint8_t AMG8833::readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest) {
   uint8_t i = 0;
-  for(uint8_t m; m<4; m++){ //4*32 max read = 128 (hack for now...only reading 128 bytes)
+  uint8_t iterations = count/32 + 1;
+  uint8_t remainder = count%32;
+  if (remainder==0) remainder = 32;
+  for(uint8_t m=0; m<iterations; m++){
     Wire.beginTransmission(deviceAddress);
     Wire.write(registerAddress+32*m);
     Wire.endTransmission(false);
-    Wire.requestFrom(deviceAddress, 32);
+    if (m==(iterations-1)){
+      Wire.requestFrom(deviceAddress, remainder);
+    }
+    else{
+      Wire.requestFrom(deviceAddress,32);
+    }
     while (Wire.available())
     {
       dest[i] = Wire.read();
