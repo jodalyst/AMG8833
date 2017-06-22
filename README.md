@@ -1,11 +1,12 @@
 # AMG8833
 
-Originally inspired by code (and nice breakout module developed <a href="https://github.com/kriswiner/AMG8833" target="_blank">here</a>).  This is a simple i2c library to get images from the module, intended for experimentation purposes.
+Originally inspired by code (and nice breakout module developed <a href="https://github.com/kriswiner/AMG8833" target="_blank">here</a>).  This is a simple i2c library to get images from the module, intended for experimentation purposes. The link above also has a library the guy wrote, which I'm sure works, but sort of went in a direction/level of specificity I didn't need, so this library is more generalized.
 
-I can't find an official register map of this device (why would they make this hard get???). Relevant links below:
+Relevant links below:
 
 * Register Map Here: https://www.eewiki.net/display/Motley/Panasonic+Grid+Eye+Memory+Registers
 * General Data Sheet Here: https://media.digikey.com/pdf/Data%20Sheets/Panasonic%20Sensors%20PDFs/Grid-EYE_AMG88.pdf
+* Data sheet (with all registers, etc...) is in this repo
 
 This library **should** be general enough to work with most devices. It uses the `Wire` library for its i2c, which works perfectly well/has been optimized for the Teensy3.2 which I developed/tested this on...the shortcomings of this library are known and I've tried to overcome/avoid them for use in this library, notably the 32-byte read limit.
 
