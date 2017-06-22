@@ -29,7 +29,7 @@ These interface directly with the chip/handle the i2c using the `Wire` library t
 
 * `void writeByte(uint8_t deviceAddress, uint8_t registerAddress, uint8_t data)`: Write a byte to the device. Should probably return some sort of success indicator, but for now it is void
 * `uint8_t readByte(uint8_t deviceAddress, uint8_t registerAddress)`: Read a single byte (returns it)
-* `uint8_t readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest)`: Read a bunch of bytes in series...tell it how many...normally the multi-read of `Wire` is limited to 32 bytes, so this adds some support on-top to get an arbitrarily long sequential read, which is needed for all 128 bytes of the full-grid.
+* `uint8_t readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest)`: Read a bunch of bytes in series...tell it how many...normally the multi-read of `Wire` is limited to 32 bytes, so this adds some support on-top to get an arbitrarily long sequential read, which is needed for all 128 bytes of the full-grid. The value returned is the number of bytes actually read...this will generally be what you asked for...otherwise but maybe not...use this for debuggin/error checking..
 
 
 ##Exampe Sketch `AMG8833_example.ino`
