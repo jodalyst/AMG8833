@@ -17,9 +17,6 @@ void loop() {
   delay(500);
   amg.readGrid(temp);
   Serial.println("New data");
-//  for(int i = 0; i<64; i++){
-//    Serial.println(temp[i]);
-//  }
   threshold_printer(temp, 29.0);
 }
 
@@ -29,8 +26,6 @@ void threshold_printer(float* data, float threshold){
   uint8_t element_count = 0;
   for (uint8_t x=0; x<8; x++){
     for (uint8_t y=0; y<8; y++){
-      //Serial.println(data[count]);
-      //Serial.println(count);
       if (data[x*8+y]>threshold) message[count] = '*';
       else message[count] = ' ';
       count ++;
