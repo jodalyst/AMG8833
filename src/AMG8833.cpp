@@ -2,14 +2,14 @@
 
 
 AMG8833::AMG8833(){
-  for (uint8_t i=0; i<64; i++){
+  for (uint8_t i=0; i<128; i++){
     rawData[i]=0;
   }
 }
 
 void AMG8833::initialize(uint8_t address, uint8_t mode, uint8_t fps){
 	Wire.begin(); // set master mode 
-  	Wire.setClock(400000); // I2C frequency at 400 kHz 
+  	Wire.setClock(100000); // I2C frequency at 400 kHz 
   	writeByte(AMG8833_ADDRESS, AMG8833_RST, AMG8833_SOFTWARE_RESET);  // initialize with a reset
   	writeByte(AMG8833_ADDRESS, AMG8833_PCTL, mode); // set operating mode
   	writeByte(AMG8833_ADDRESS, AMG8833_FPSC, fps); // sample rate (0x00 = 10 fps or 0x01 = 1 fps)
@@ -17,15 +17,17 @@ void AMG8833::initialize(uint8_t address, uint8_t mode, uint8_t fps){
 
 
 uint8_t AMG8833::readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest) {
-  Wire.beginTransmission(deviceAddress);
-  Wire.write(registerAddress);
-  Wire.endTransmission(false);
   uint8_t i = 0;
-  Wire.requestFrom(deviceAddress, count);
-  while (Wire.available())
-  {
-    dest[i] = Wire.read();
-    i++;
+  for(uint8_t m; m<4; m++){ //4*32 max read = 128 (hack for now...only reading 128 bytes)
+    Wire.beginTransmission(deviceAddress);
+    Wire.write(registerAddress+32*m);
+    Wire.endTransmission(false);
+    Wire.requestFrom(deviceAddress, 32);
+    while (Wire.available())
+    {
+      dest[i] = Wire.read();
+      i++;
+    }
   }
   return i;
 }
