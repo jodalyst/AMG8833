@@ -22,7 +22,6 @@ This library **should** be general enough to work with most devices. It uses the
 
 * `int AMG8833::readThermistor()`: Read's onboard thermistor
 
-* `
 
 ### Private:
 
