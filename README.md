@@ -32,7 +32,7 @@ These interface directly with the chip/handle the i2c using the `Wire` library t
 * `uint8_t readBytes(uint8_t deviceAddress, uint8_t registerAddress, uint8_t count, uint8_t * dest)`: Read a bunch of bytes in series...tell it how many...normally the multi-read of `Wire` is limited to 32 bytes, so this adds some support on-top to get an arbitrarily long sequential read, which is needed for all 128 bytes of the full-grid. The value returned is the number of bytes actually read...this will generally be what you asked for...otherwise but maybe not...use this for debuggin/error checking..
 
 
-##Exampe Sketch `AMG8833_example.ino`
+## Example Sketch `AMG8833_example.ino`
 
 Real simple sketch using the library.  Again the code  <a href="https://github.com/kriswiner/AMG8833" target="_blank">here</a> gives a more functional example with a TFT, but was a bit too specific for my needs. This sketch simply draws out an "image" over Serial (Serial Monitor) using an aribtrarily-designted threshold to decide what is a `*` and what is a ` ` character. So you end up with images like this (when I was putting my finger over half the sensor's field of view:
 
